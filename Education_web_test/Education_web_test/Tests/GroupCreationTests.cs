@@ -8,19 +8,19 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupCreationTests: TestBase
+    public class GroupCreationTests : TestBase
     {
         [Test]
+
+
         public void GroupCreationTest()
         {
-            app.Navigation.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Navigation.OpenGroupTab();
-            app.Group.CreateNewGroup();
-            app.Group.FillGroupForm(new GroupData("aaa"));
-            app.Group.SubmitGroupForm();
+            GroupData group = new GroupData("123");
+            
+            app.Group.Create(group);
             app.Navigation.ReturnToGroupPage();
             app.Auth.Logout();
+            
         }
 
     }

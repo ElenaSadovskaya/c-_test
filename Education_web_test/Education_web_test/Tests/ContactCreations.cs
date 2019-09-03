@@ -14,11 +14,9 @@ namespace Education_web_test
         [Test]
         public void ContactCreation()
         {
-            app.Navigation.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
+            ContactData contact = new ContactData("123","123","434324");
             app.Contact.NewContact();
-            app.Contact.CreateNewContact(new ContactData("1", "2", "3"));
-            app.Contact.SubmitContact();
+            app.Contact.Create(contact);
             app.Navigation.OpenContacts();
             app.Auth.Logout();
 

@@ -12,17 +12,27 @@ namespace Education_web_test
     public class GroupHelper : BaseHelper
     {
         
-        public GroupHelper(IWebDriver driver) : base(driver)
+        public GroupHelper(ApplicationManager manager) : base(manager)
         {
             
         }
 
-        public void CreateNewGroup()
+        public GroupHelper Create(GroupData group)
         {
-            driver.FindElement(By.Name("new")).Click();
+            manager.Navigation.OpenGroupTab();
+            CreateNewGroup();
+            FillGroupForm(group);
+            SubmitGroupForm();
+            return this;
         }
 
-        public void FillGroupForm(GroupData group)
+        public GroupHelper CreateNewGroup()
+        {
+            driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
+
+        public GroupHelper FillGroupForm(GroupData group)
         {
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
@@ -33,14 +43,16 @@ namespace Education_web_test
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            return this;
         }
 
 
 
 
-        public void SubmitGroupForm()
+        public GroupHelper SubmitGroupForm()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
     }

@@ -11,18 +11,26 @@ namespace Education_web_test
 {
     public class ContactHelper : BaseHelper
     {
-       
 
-        public ContactHelper(IWebDriver driver) : base(driver)
+
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
 
-        public void NewContact()
+        public ContactHelper Create(ContactData contact)
+        {
+            CreateNewContact(contact);
+            SubmitContact();
+            return this;
+        }
+
+        public ContactHelper NewContact()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
 
-        public void CreateNewContact(ContactData contact)
+        public ContactHelper CreateNewContact(ContactData contact)
         {
 
             driver.FindElement(By.Name("firstname")).Click();
@@ -79,12 +87,14 @@ namespace Education_web_test
             driver.FindElement(By.Name("notes")).Click();
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys(contact.Notes);
+            return this;
         }
 
 
-        public void SubmitContact()
+        public ContactHelper SubmitContact()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            return this;
         }
     }
 }

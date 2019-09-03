@@ -11,9 +11,8 @@ namespace Education_web_test
 {
     public class ApplicationManager
     {
-        protected IWebDriver driver;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
+        public IWebDriver driver;
+        public string baseURL;
         public NavigationHelper navigator;
         public GroupHelper group;
         public ContactHelper contact;
@@ -21,15 +20,15 @@ namespace Education_web_test
 
         public ApplicationManager()
         {
-            loginHelper = new LoginHelper(driver);
-            navigator = new NavigationHelper(driver, baseURL);
-            group = new GroupHelper(driver);
-            contact = new ContactHelper(driver);
 
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
-            verificationErrors = new StringBuilder();
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            group = new GroupHelper(this);
+            contact = new ContactHelper(this);
 
+            
         }
 
         public LoginHelper Auth
@@ -49,7 +48,7 @@ namespace Education_web_test
             }
             catch (Exception)
             {
-                // Ignore errors if unable to close the browser
+                
             }
         }
 
@@ -75,6 +74,16 @@ namespace Education_web_test
             {
                 return group;
             }
+        }
+
+        public IWebDriver Driver
+        {
+
+            get
+            {
+                return driver;
+            }
+
         }
     }
 }

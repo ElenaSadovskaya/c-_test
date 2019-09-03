@@ -10,14 +10,15 @@ namespace Education_web_test
 {
     public  class TestBase
     {
-        protected ApplicationManager app;
-        private bool acceptNextAlert = true;
-        
+        public ApplicationManager app;
+              
         
         [SetUp]
         public void SetupTest()
         {
-            app = new ApplicationManager();         
+            app = new ApplicationManager();
+            app.Navigation.OpenHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]
