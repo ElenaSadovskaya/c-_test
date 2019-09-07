@@ -11,6 +11,7 @@ namespace Education_web_test
     public  class TestBase
     {
         public ApplicationManager app;
+
               
         
         [SetUp]
@@ -19,6 +20,7 @@ namespace Education_web_test
             app = new ApplicationManager();
             app.Navigation.OpenHomePage();
             app.Auth.Login(new AccountData("admin", "secret"));
+
         }
 
         [TearDown]

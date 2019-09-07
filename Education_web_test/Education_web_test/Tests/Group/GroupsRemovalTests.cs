@@ -8,20 +8,20 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class GroupsRemoval : TestBase
     {
+               
         [Test]
-
-
-        public void GroupCreationTest()
+        public void GroupRemoval()
         {
-            GroupData group = new GroupData("123");
-            
-            app.Group.Create(group);
+            app.Group.Detele();
             app.Navigation.ReturnToGroupPage();
             app.Auth.Logout();
-            
+
         }
+
+        
+
 
     }
 }

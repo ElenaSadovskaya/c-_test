@@ -17,12 +17,34 @@ namespace Education_web_test
         {
         }
 
+        
+
         public ContactHelper Create(ContactData contact)
         {
-            CreateNewContact(contact);
+            FillContactData(contact);
             SubmitContact();
             return this;
         }
+
+        public ContactHelper Modify (int index, ContactData newData)
+        {
+            manager.Navigation.OpenHomePage();
+            SelectContact(index);
+            ModifySelectedContact();
+            FillContactData(newData);
+            UpdateContact();
+            return this;
+
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            manager.Navigation.OpenHomePage();
+            SelectContact(1);
+            DeleteContact();
+            return this;
+        }
+
 
         public ContactHelper NewContact()
         {
@@ -30,7 +52,34 @@ namespace Education_web_test
             return this;
         }
 
-        public ContactHelper CreateNewContact(ContactData contact)
+
+        public ContactHelper UpdateContact()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper ModifySelectedContact()
+        {
+            driver.FindElement(By.CssSelector("img[title=\"Edit\"]")).Click();
+            return this;
+        }
+
+        
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ index +"]")).Click();
+            return this;
+        }
+
+        public ContactHelper DeleteContact()
+        {
+            driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper FillContactData(ContactData contact)
         {
 
             driver.FindElement(By.Name("firstname")).Click();

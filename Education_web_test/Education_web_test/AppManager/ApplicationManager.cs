@@ -17,6 +17,7 @@ namespace Education_web_test
         public GroupHelper group;
         public ContactHelper contact;
         public LoginHelper loginHelper;
+        
 
         public ApplicationManager()
         {
@@ -27,8 +28,7 @@ namespace Education_web_test
             navigator = new NavigationHelper(this, baseURL);
             group = new GroupHelper(this);
             contact = new ContactHelper(this);
-
-            
+             
         }
 
         public LoginHelper Auth

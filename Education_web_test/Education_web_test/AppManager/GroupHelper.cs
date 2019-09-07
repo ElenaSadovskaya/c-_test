@@ -17,12 +17,38 @@ namespace Education_web_test
             
         }
 
+        public GroupHelper Modify(GroupData newData)
+        {
+            manager.Navigation.OpenGroupTab();
+            SelectGroup(1);
+            InitialModifyGroup();
+          return this;
+        }
+
         public GroupHelper Create(GroupData group)
         {
             manager.Navigation.OpenGroupTab();
             CreateNewGroup();
             FillGroupForm(group);
             SubmitGroupForm();
+            return this;
+        }
+
+        public GroupHelper Modify(int index , GroupData newData)
+        {
+            manager.Navigation.OpenGroupTab();
+            SelectGroup(1);
+            InitialModifyGroup();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            return this;
+        }
+
+        public GroupHelper Detele()
+        {
+            manager.Navigation.OpenGroupTab();
+            SelectGroup(1);
+            DeleteGroup();
             return this;
         }
 
@@ -46,14 +72,34 @@ namespace Education_web_test
             return this;
         }
 
-
-
-
+        
         public GroupHelper SubmitGroupForm()
         {
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+        public GroupHelper DeleteGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
+            return this;
+        }
 
+        public GroupHelper InitialModifyGroup()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update"));
+            return this;
+        }
     }
 }

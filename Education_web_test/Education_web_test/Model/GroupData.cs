@@ -11,7 +11,7 @@ namespace Education_web_test
         private string name;
         private string header = "";
         private string footer = "";
-
+        
         public GroupData(string name)
         {
             this.name = name;
@@ -26,6 +26,7 @@ namespace Education_web_test
 
         }
 
+        
         public string Name
         {
             get
@@ -66,5 +67,7 @@ namespace Education_web_test
                 footer = value;
             }
         }
+
+        
     }
 }
