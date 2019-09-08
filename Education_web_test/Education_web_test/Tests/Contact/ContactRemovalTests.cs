@@ -9,15 +9,17 @@ namespace Education_web_test
 {
     [TestFixture]
 
-    public class ContactRemovalTests : TestBase
-        {
+    public class ContactRemovalTests : AuthTestBase
+    {
         [Test]
         public void ContactRemoval()
         {
-                app.Contact.RemoveContact();
-                app.Navigation.OpenContacts();
-                app.Auth.Logout();
-            }
+            int index = 1;
+            ContactData contact = new ContactData("1", "1", "1");
+            app.Contact.RemoveContact(index, contact);
+            app.Navigation.OpenContacts();
+            
         }
+    }
 
 }

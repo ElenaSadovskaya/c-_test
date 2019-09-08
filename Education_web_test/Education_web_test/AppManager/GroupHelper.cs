@@ -17,13 +17,6 @@ namespace Education_web_test
             
         }
 
-        public GroupHelper Modify(GroupData newData)
-        {
-            manager.Navigation.OpenGroupTab();
-            SelectGroup(1);
-            InitialModifyGroup();
-          return this;
-        }
 
         public GroupHelper Create(GroupData group)
         {
@@ -34,20 +27,40 @@ namespace Education_web_test
             return this;
         }
 
-        public GroupHelper Modify(int index , GroupData newData)
+        public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigation.OpenGroupTab();
-            SelectGroup(1);
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            {
+            }
+            else
+            {
+                CreateNewGroup();
+                FillGroupForm(new GroupData("1", "1", "1"));
+                SubmitGroupForm();
+                manager.Navigation.OpenGroupTab();
+            }
+            SelectGroup(index);
             InitialModifyGroup();
             FillGroupForm(newData);
             SubmitGroupModification();
             return this;
         }
 
-        public GroupHelper Detele()
+        public GroupHelper Detele(int index, GroupData group)
         {
             manager.Navigation.OpenGroupTab();
-            SelectGroup(1);
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            {
+            }
+            else
+            {
+                CreateNewGroup();
+                FillGroupForm(group);
+                SubmitGroupForm();
+                manager.Navigation.OpenGroupTab();
+            }
+            SelectGroup(index); 
             DeleteGroup();
             return this;
         }
@@ -60,19 +73,14 @@ namespace Education_web_test
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
             return this;
         }
-
         
+
         public GroupHelper SubmitGroupForm()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -98,8 +106,10 @@ namespace Education_web_test
 
         public GroupHelper SubmitGroupModification()
         {
-            driver.FindElement(By.Name("update"));
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
+
+       
     }
 }

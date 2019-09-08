@@ -8,17 +8,16 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class ContactModificationTests: TestBase
+    public class ContactModificationTests: AuthTestBase
     {
         [Test]
         public void  ContactModificationTest()
         {
             ContactData newData = new ContactData("123", "3464", "4546");
             int index = 1;
-            app.Contact.Modify(index , newData);
+            app.Contact.Modify(index, newData);
             app.Navigation.OpenHomePage();
-            app.Auth.Logout();
-
+            
 
         }
     }

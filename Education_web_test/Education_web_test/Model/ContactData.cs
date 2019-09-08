@@ -20,8 +20,8 @@ namespace Education_web_test
         private string work = "";
         private string fax = "";
         private string email = "";
-        private string email12 = "";
-        private string email13 = "";
+        private string email2 = "";
+        private string email3 = "";
         private string homepage = "";
         private string address2 = "";
         private string phone2 = "";
@@ -37,7 +37,7 @@ namespace Education_web_test
         }
 
 
-        public ContactData(string firstname, string lastname, string address, string middlename, string nickname, string title, string company, string home, string mobile, string work, string fax, string email, string email12, string email13, string homepage, string address2, string phone2, string notes )
+        public ContactData(string firstname, string lastname, string address, string middlename, string nickname, string title, string company, string home, string mobile, string work, string fax, string email, string email2, string email3, string homepage, string address2, string phone2, string notes )
         {
 
             this.firstname = firstname ;
@@ -52,8 +52,8 @@ namespace Education_web_test
             this.work = work;;
             this.fax = fax;
             this.email = email;
-            this.email12 = email12;
-            this.email13 = email13;
+            this.email2 = email2;
+            this.email3 = email3;
             this.homepage = homepage;
             this.address2 = address2;
             this.phone2 = phone2;
@@ -221,29 +221,29 @@ namespace Education_web_test
             }
         }
 
-        public string Email12
+        public string Email2
         {
             get
             {
-                return email12;
+                return email2;
             }
 
             set
             {
-                email12 = value;
+                email2 = value;
             }
         }
 
-        public string Email13
+        public string Email3
         {
             get
             {
-                return email13;
+                return email3;
             }
 
             set
             {
-                email13 = value;
+                email3 = value;
             }
         }
 

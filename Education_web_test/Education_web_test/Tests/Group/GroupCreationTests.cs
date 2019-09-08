@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class GroupCreationTests : AuthTestBase
     {
         [Test]
 
@@ -17,9 +17,9 @@ namespace Education_web_test
             GroupData group = new GroupData("123");
             
             app.Group.Create(group);
-            app.Navigation.ReturnToGroupPage();
-            app.Auth.Logout();
+            app.Navigation.OpenGroupTab();
             
+
         }
 
     }

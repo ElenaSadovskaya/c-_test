@@ -9,16 +9,16 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void GroupModificationsTest()
         {
-            GroupData newData = new GroupData("zzz");
-
-            app.Group.Modify (newData);
-            app.Navigation.ReturnToGroupPage();
-            app.Auth.Logout();
+            GroupData newData = new GroupData("zzz","","");
+            int index = 1;
+            app.Group.Modify (index, newData);
+            app.Navigation.OpenGroupTab();
+            
         }
     }
 }

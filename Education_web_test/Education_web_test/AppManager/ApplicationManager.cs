@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -17,9 +18,9 @@ namespace Education_web_test
         public GroupHelper group;
         public ContactHelper contact;
         public LoginHelper loginHelper;
-        
+        private static ThreadLocal <ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
-        public ApplicationManager()
+        private ApplicationManager()
         {
 
             driver = new FirefoxDriver();
@@ -31,6 +32,33 @@ namespace Education_web_test
              
         }
 
+         
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated) 
+            {
+                ApplicationManager NewInstance = new ApplicationManager();
+                NewInstance.Navigation.OpenHomePage();
+                app.Value = NewInstance;
+              
+            }
+            return app.Value;
+        }
+
+        ~ApplicationManager()
+        {
+
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
         public LoginHelper Auth
         {
             get
@@ -40,17 +68,6 @@ namespace Education_web_test
         }
 
 
-        public void Stop()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                
-            }
-        }
 
         public NavigationHelper Navigation
         {

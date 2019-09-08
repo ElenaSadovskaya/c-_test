@@ -7,17 +7,16 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    class ContactCreationTests : TestBase
+    class ContactCreationTests : AuthTestBase
     {
 
         [Test]
         public void ContactCreation()
         {
             ContactData contact = new ContactData("123","123","434324");
-            app.Contact.NewContact();
             app.Contact.Create(contact);
             app.Navigation.OpenContacts();
-            app.Auth.Logout();
+            
 
         }
 

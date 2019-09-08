@@ -22,18 +22,22 @@ namespace Education_web_test
         
         public void OpenHomePage()
         {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL);
          }
 
         public void OpenGroupTab()
         {
+            if (driver.Url == baseURL + "/group.php" && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        public void ReturnToGroupPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
                
 
         public void OpenContacts()
