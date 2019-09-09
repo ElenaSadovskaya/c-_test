@@ -39,14 +39,11 @@ namespace Education_web_test
         }
 
                
-
+        
         public void OpenContacts()
         {
             driver.FindElement(By.LinkText("home")).Click();
         }
-
-       
-
 
     }
 }

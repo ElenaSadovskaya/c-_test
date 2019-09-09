@@ -27,40 +27,20 @@ namespace Education_web_test
             return this;
         }
 
-        public GroupHelper Modify(int index, GroupData newData)
+        public GroupHelper Modify(GroupData newData)
         {
             manager.Navigation.OpenGroupTab();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
-            {
-            }
-            else
-            {
-                CreateNewGroup();
-                FillGroupForm(new GroupData("1", "1", "1"));
-                SubmitGroupForm();
-                manager.Navigation.OpenGroupTab();
-            }
-            SelectGroup(index);
+            SelectGroup();
             InitialModifyGroup();
             FillGroupForm(newData);
             SubmitGroupModification();
             return this;
         }
-
-        public GroupHelper Detele(int index, GroupData group)
+        
+        public GroupHelper Detele()
         {
             manager.Navigation.OpenGroupTab();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
-            {
-            }
-            else
-            {
-                CreateNewGroup();
-                FillGroupForm(group);
-                SubmitGroupForm();
-                manager.Navigation.OpenGroupTab();
-            }
-            SelectGroup(index); 
+            SelectGroup(); 
             DeleteGroup();
             return this;
         }
@@ -98,9 +78,9 @@ namespace Education_web_test
             return this;
         }
 
-        public GroupHelper SelectGroup(int index)
+        public GroupHelper SelectGroup()
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
             return this;
         }
 
@@ -110,6 +90,18 @@ namespace Education_web_test
             return this;
         }
 
-       
-    }
+        public GroupHelper CheckGroupExist()
+        {
+            manager.Navigation.OpenGroupTab();
+            if (ElementExist())
+            {
+            }
+            else
+            {
+                Create(new GroupData("test", "test", "test"));
+                manager.Navigation.OpenGroupTab();
+            }
+            return this;
+         }
+}
 }

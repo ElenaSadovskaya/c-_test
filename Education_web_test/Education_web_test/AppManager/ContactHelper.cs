@@ -30,21 +30,11 @@ namespace Education_web_test
             return this;
         }
 
-        public ContactHelper Modify (int index, ContactData newData)
+        public ContactHelper Modify (ContactData newData)
         {
             manager.Navigation.OpenHomePage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
-            {
-
-            }
-            else
-            {
-                NewContact();
-                FillContactData(new ContactData("1", "1", "1"));
-                SubmitContact();
-                manager.Navigation.OpenHomePage();
-            }
-            SelectContact(index);
+            
+            SelectContact();
             ModifySelectedContact();
             FillContactData(newData);
             UpdateContact();
@@ -52,20 +42,10 @@ namespace Education_web_test
 
         }
 
-        public ContactHelper RemoveContact(int index, ContactData contact)
+        public ContactHelper RemoveContact()
         {
             manager.Navigation.OpenHomePage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
-            {
-            }
-            else
-            {
-                NewContact();
-                FillContactData(contact);
-                SubmitContact();
-                manager.Navigation.OpenHomePage();
-            }
-            SelectContact(index);
+            SelectContact();
             DeleteContact();
             return this;
         }
@@ -91,9 +71,9 @@ namespace Education_web_test
         }
 
         
-        public ContactHelper SelectContact(int index)
+        public ContactHelper SelectContact()
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ index +"]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
             return this;
         }
 
@@ -131,6 +111,22 @@ namespace Education_web_test
         public ContactHelper SubmitContact()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            return this;
+        }
+
+
+        public ContactHelper CheckContactExist()
+        {
+            manager.Navigation.OpenHomePage();
+            if (ElementExist())
+            {
+            }
+            else
+            {
+                NewContact();
+                Create(new ContactData("test", "test", "test"));
+                manager.Navigation.OpenHomePage();
+            }
             return this;
         }
     }

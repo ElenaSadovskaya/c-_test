@@ -14,12 +14,11 @@ namespace Education_web_test
         [Test]
         public void ContactRemoval()
         {
-            int index = 1;
-            ContactData contact = new ContactData("1", "1", "1");
-            app.Contact.RemoveContact(index, contact);
+            app.Contact.CheckContactExist();
+            app.Contact.RemoveContact();
             app.Navigation.OpenContacts();
-            
-        }
-    }
 
+        }
+        
+    }
 }

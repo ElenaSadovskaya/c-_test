@@ -14,13 +14,10 @@ namespace Education_web_test
         [Test]
         public void GroupRemoval()
         {
-
-            GroupData group = new GroupData("test", "test", "test");
-            int index = 1;
-            app.Group.Detele(index, group);
+            app.Group.CheckGroupExist();
+            app.Group.Detele();
             app.Navigation.OpenGroupTab();
-            
-
+                       
         }
 
     }

@@ -14,9 +14,10 @@ namespace Education_web_test
         [Test]
         public void GroupModificationsTest()
         {
+
+            app.Group.CheckGroupExist();
             GroupData newData = new GroupData("zzz","","");
-            int index = 1;
-            app.Group.Modify (index, newData);
+            app.Group.Modify(newData);
             app.Navigation.OpenGroupTab();
             
         }

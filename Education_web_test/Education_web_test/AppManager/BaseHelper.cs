@@ -30,7 +30,7 @@ namespace Education_web_test
             }
 
         }
-
+        
         public bool IsElementPresent(By by)
         {
             try
@@ -42,6 +42,19 @@ namespace Education_web_test
             {
                 return false;
             }
+        }
+
+        public bool ElementExist()
+        {
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

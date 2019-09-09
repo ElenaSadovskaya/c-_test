@@ -29,7 +29,7 @@ namespace Education_web_test
             navigator = new NavigationHelper(this, baseURL);
             group = new GroupHelper(this);
             contact = new ContactHelper(this);
-             
+            
         }
 
          
@@ -102,5 +102,7 @@ namespace Education_web_test
             }
 
         }
+
+        
     }
 }

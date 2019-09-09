@@ -14,10 +14,9 @@ namespace Education_web_test
         public void  ContactModificationTest()
         {
             ContactData newData = new ContactData("123", "3464", "4546");
-            int index = 1;
-            app.Contact.Modify(index, newData);
+            app.Contact.CheckContactExist();
+            app.Contact.Modify(newData);
             app.Navigation.OpenHomePage();
-            
 
         }
     }
