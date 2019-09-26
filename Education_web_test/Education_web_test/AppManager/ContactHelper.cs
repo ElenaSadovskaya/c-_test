@@ -17,10 +17,6 @@ namespace Education_web_test
         {
         }
 
-        internal void RemoveContact(int index, object contact)
-        {
-            throw new NotImplementedException();
-        }
 
         public ContactHelper Create(ContactData contact)
         {
@@ -30,11 +26,11 @@ namespace Education_web_test
             return this;
         }
 
-        public ContactHelper Modify (ContactData newData)
+        public ContactHelper Modify (int t, ContactData newData)
         {
             manager.Navigation.OpenHomePage();
             
-            SelectContact();
+            SelectContact(t);
             ModifySelectedContact();
             FillContactData(newData);
             UpdateContact();
@@ -42,10 +38,10 @@ namespace Education_web_test
 
         }
 
-        public ContactHelper RemoveContact()
+        public ContactHelper RemoveContact(int p)
         {
-            manager.Navigation.OpenHomePage();
-            SelectContact();
+            manager.Navigation.OpenContacts();
+            SelectContact(p);
             DeleteContact();
             return this;
         }
@@ -71,9 +67,9 @@ namespace Education_web_test
         }
 
         
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -128,6 +124,21 @@ namespace Education_web_test
                 manager.Navigation.OpenHomePage();
             }
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contact = new List<ContactData>();
+            manager.Navigation.OpenContacts();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+            
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = driver.FindElements(By.TagName("td"));
+                contact.Add(new ContactData(cells[2].Text, cells[1].Text, cells[3].Text));
+            }
+            
+            return contact;
         }
     }
 }

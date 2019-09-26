@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Education_web_test
 {
@@ -13,11 +14,12 @@ namespace Education_web_test
         [Test]
         public void ContactCreation()
         {
-            ContactData contact = new ContactData("123","123","434324");
+            ContactData contact = new ContactData("165465423","123","434324");
+            List<ContactData> oldContact = app.Contact.GetContactList();
             app.Contact.Create(contact);
             app.Navigation.OpenContacts();
-            
-
+            List<ContactData> newContact = app.Contact.GetContactList();
+            Assert.AreEqual(oldContact.Count + 1, newContact.Count);
         }
 
         

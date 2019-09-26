@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Education_web_test
 {
@@ -13,11 +13,13 @@ namespace Education_web_test
         [Test]
         public void  ContactModificationTest()
         {
-            ContactData newData = new ContactData("123", "3464", "4546");
+            ContactData newData = new ContactData("165ffd465423", "123rewre", "434rewrew324");
             app.Contact.CheckContactExist();
-            app.Contact.Modify(newData);
+            List<ContactData> oldContact = app.Contact.GetContactList();
+            app.Contact.Modify(0, newData);
             app.Navigation.OpenHomePage();
-
+            List<ContactData> newContact = app.Contact.GetContactList();
+            Assert.AreNotEqual(oldContact, newContact);
         }
     }
 }

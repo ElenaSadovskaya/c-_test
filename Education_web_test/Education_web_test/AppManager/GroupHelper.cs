@@ -27,20 +27,22 @@ namespace Education_web_test
             return this;
         }
 
-        public GroupHelper Modify(GroupData newData)
+        
+
+        public GroupHelper Modify(int t, GroupData newData)
         {
             manager.Navigation.OpenGroupTab();
-            SelectGroup();
+            SelectGroup(t);
             InitialModifyGroup();
             FillGroupForm(newData);
             SubmitGroupModification();
             return this;
         }
         
-        public GroupHelper Detele()
+        public GroupHelper Detele(int p)
         {
             manager.Navigation.OpenGroupTab();
-            SelectGroup(); 
+            SelectGroup(p); 
             DeleteGroup();
             return this;
         }
@@ -78,9 +80,9 @@ namespace Education_web_test
             return this;
         }
 
-        public GroupHelper SelectGroup()
+        public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -103,5 +105,17 @@ namespace Education_web_test
             }
             return this;
          }
-}
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigation.OpenGroupTab();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+    }
 }

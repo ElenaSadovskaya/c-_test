@@ -16,10 +16,16 @@ namespace Education_web_test
         {
 
             app.Group.CheckGroupExist();
+            List<GroupData> oldGroups = app.Group.GetGroupList();
             GroupData newData = new GroupData("zzz","","");
-            app.Group.Modify(newData);
+            app.Group.Modify(0, newData);
             app.Navigation.OpenGroupTab();
-            
+            List<GroupData> newGroups = app.Group.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
     }
 }

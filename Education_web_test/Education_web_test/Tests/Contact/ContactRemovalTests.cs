@@ -15,8 +15,12 @@ namespace Education_web_test
         public void ContactRemoval()
         {
             app.Contact.CheckContactExist();
-            app.Contact.RemoveContact();
+            List<ContactData> oldContact = app.Contact.GetContactList();
+            app.Contact.RemoveContact(0);
             app.Navigation.OpenContacts();
+            List<ContactData> newContact = app.Contact.GetContactList();
+            oldContact.RemoveAt(0);
+            Assert.AreEqual(oldContact, newContact);
 
         }
         
