@@ -19,7 +19,10 @@ namespace Education_web_test
             app.Contact.Create(contact);
             app.Navigation.OpenContacts();
             List<ContactData> newContact = app.Contact.GetContactList();
-            Assert.AreEqual(oldContact.Count + 1, newContact.Count);
+            oldContact.Add(contact);
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
         }
 
         

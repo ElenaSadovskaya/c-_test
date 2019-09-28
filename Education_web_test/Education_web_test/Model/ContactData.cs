@@ -53,14 +53,27 @@ namespace Education_web_test
             return Firstname.GetHashCode() & LastName.GetHashCode() & Address.GetHashCode();
         }
 
-        
+        public override string ToString()
+        {
+            return "LastName=" + LastName + " FirstName=" + Firstname + "Address=" + Address;
+        }
+
         public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
-                return 1;
+                
+                    return 1;
             }
-            return Firstname.CompareTo(other.Firstname)&LastName.CompareTo(other.LastName) & Address.CompareTo(other.Address);
+
+            if (LastName.CompareTo(other.LastName) == 0)
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+            else
+            {
+                return LastName.CompareTo(other.LastName);
+            }            
         }
 
         

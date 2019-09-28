@@ -131,13 +131,15 @@ namespace Education_web_test
             List<ContactData> contact = new List<ContactData>();
             manager.Navigation.OpenContacts();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
-            
             foreach (IWebElement element in elements)
             {
-                IList<IWebElement> cells = driver.FindElements(By.TagName("td"));
-                contact.Add(new ContactData(cells[2].Text, cells[1].Text, cells[3].Text));
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+
+                if (cells.Count != 0)
+                {
+                    contact.Add(new ContactData(cells[2].Text, cells[1].Text, cells[3].Text));
+                }        
             }
-            
             return contact;
         }
     }
