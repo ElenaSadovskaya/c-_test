@@ -57,6 +57,7 @@ namespace Education_web_test
         public ContactHelper UpdateContact()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -77,6 +78,7 @@ namespace Education_web_test
         {
             driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
@@ -107,6 +109,7 @@ namespace Education_web_test
         public ContactHelper SubmitContact()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -126,21 +129,26 @@ namespace Education_web_test
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contact = new List<ContactData>();
-            manager.Navigation.OpenContacts();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-
-                if (cells.Count != 0)
+                contactCache = new List<ContactData>();
+                manager.Navigation.OpenContacts();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+                foreach (IWebElement element in elements)
                 {
-                    contact.Add(new ContactData(cells[2].Text, cells[1].Text, cells[3].Text));
-                }        
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+
+                    if (cells.Count != 0)
+                    {
+                        contactCache.Add(new ContactData(cells[2].Text, cells[1].Text, cells[3].Text));
+                    }
+                }
             }
-            return contact;
+            return new List<ContactData>(contactCache);
         }
     }
 }
