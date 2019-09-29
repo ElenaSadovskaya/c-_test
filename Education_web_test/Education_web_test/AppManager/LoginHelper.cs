@@ -50,8 +50,14 @@ namespace Education_web_test
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text 
-                    == "(" + account.Username + ")";
+                && getLoggedUserName() == account.Username;
+       
+        }
+
+        public string getLoggedUserName()
+        {
+            string text =  driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            return text.Substring(1, text.Length-2);        
         }
     }
 }

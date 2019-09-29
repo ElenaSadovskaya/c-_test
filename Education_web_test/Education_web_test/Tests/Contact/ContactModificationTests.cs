@@ -16,6 +16,7 @@ namespace Education_web_test
             ContactData newData = new ContactData("165ffd46frtyuk5423", "123rvbnewre", "43bnm4rewrew324");
             app.Contact.CheckContactExist();
             List<ContactData> oldContact = app.Contact.GetContactList();
+            ContactData oldData = oldContact[0];
             app.Contact.Modify(0, newData);
             app.Navigation.OpenHomePage();
             List<ContactData> newContact = app.Contact.GetContactList();
@@ -25,6 +26,15 @@ namespace Education_web_test
             oldContact.Sort();
             newContact.Sort();
             Assert.AreEqual(oldContact, newContact);
+
+            foreach (ContactData contact in newContact)
+            {
+
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.LastName, contact.LastName);
+                }
+            }
         }
     }
 }

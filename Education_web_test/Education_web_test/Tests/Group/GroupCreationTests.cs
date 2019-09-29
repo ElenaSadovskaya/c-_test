@@ -15,7 +15,7 @@ namespace Education_web_test
 
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("aa");
+            GroupData group = new GroupData("aa","","");
 
             List<GroupData> oldGroups = app.Group.GetGroupList();
             app.Group.Create(group);

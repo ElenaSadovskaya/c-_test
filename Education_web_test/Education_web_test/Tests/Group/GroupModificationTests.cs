@@ -17,7 +17,8 @@ namespace Education_web_test
 
             app.Group.CheckGroupExist();
             List<GroupData> oldGroups = app.Group.GetGroupList();
-            GroupData newData = new GroupData("zzz","","");
+            GroupData oldData = oldGroups[0];
+            GroupData newData = new GroupData("zzz", "", "");
             app.Group.Modify(0, newData);
             app.Navigation.OpenGroupTab();
             List<GroupData> newGroups = app.Group.GetGroupList();
@@ -25,6 +26,13 @@ namespace Education_web_test
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                    Assert.AreEqual( newData.Name, group.Name);
+                }
+            }
 
         }
     }
