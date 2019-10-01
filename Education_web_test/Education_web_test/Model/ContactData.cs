@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Education_web_test
 {
@@ -152,7 +153,7 @@ namespace Education_web_test
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")  + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "")  + "\r\n";
         }
 
 
@@ -162,10 +163,31 @@ namespace Education_web_test
             {
                 return "";
             }
-            return email.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(email, "[ -()]", "") + "\r\n";
         }
-       
 
+        private string CleanUpAddress(string address)
+        {
+            if ( address== null || address == "")
+            {
+                return "";
+            }
+            return Regex.Replace(address, "[ -()]", "") + "\r\n";
+        }
+
+        public string AllData
+        {
+            get
+            {
+                return ((Firstname +  LastName + "\r\n") + CleanUpAddress(Address) + "\r\n" + (AllPhone + "\r\n") + "\r\n" + (AllEmail + "\r\n")).Trim();
+
+            }
+
+            set
+            {
+                AllData = value;
+            }
+        }
     }
 
 }

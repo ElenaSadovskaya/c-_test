@@ -22,5 +22,15 @@ namespace Education_web_test
             Assert.AreEqual(fromTable.AllPhone, fromTable.AllPhone);
             Assert.AreEqual(fromTable.AllEmail, fromTable.AllEmail);
         }
+
+        [Test]
+        public void TestContactInformationFromDetails()
+        {
+            string dataFromDetails = app.Contact.GetInformationFromDetails(0);
+            ContactData dataFromForm = app.Contact.GetInformationFromForm(0);
+            string text = (dataFromForm.AllData).ToString();
+            Assert.AreEqual(dataFromDetails, (dataFromForm.AllData).ToString());
+
+        }
     }
 }

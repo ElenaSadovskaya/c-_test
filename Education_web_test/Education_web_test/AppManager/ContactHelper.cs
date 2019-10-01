@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
+
 
 namespace Education_web_test
 {
@@ -37,6 +39,8 @@ namespace Education_web_test
             return this;
 
         }
+
+        
 
         public ContactHelper RemoveContact(int p)
         {
@@ -198,6 +202,14 @@ namespace Education_web_test
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+
+        public string GetInformationFromDetails(int index)
+        {
+            manager.Navigation.OpenHomePage();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].Click();
+            string allDataFromDetailsFormat = Regex.Replace(driver.FindElement(By.Id("content")).Text.Trim(), "[ -():MWH]", "");
+            return allDataFromDetailsFormat; 
         }
     }
 }
