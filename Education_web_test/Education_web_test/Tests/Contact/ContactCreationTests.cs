@@ -10,12 +10,26 @@ namespace Education_web_test
     [TestFixture]
     class ContactCreationTests : AuthTestBase
     {
-
-        [Test]
-        public void ContactCreation()
+        public static IEnumerable<ContactData> RandomGroupDataProvider()
         {
-            ContactData contact = new ContactData("165465423","123","434324");
-            List<ContactData> oldContact = app.Contact.GetContactList();
+            List<ContactData> contact = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contact.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30), GenerateRandomString(30))
+                {
+                    Firstname = GenerateRandomString(100),
+                    LastName = GenerateRandomString(100),
+                    Address = GenerateRandomString(100)
+                });
+            }
+            return contact;
+        }
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+
+        public void ContactCreation(ContactData contact)
+        {
+                        List<ContactData> oldContact = app.Contact.GetContactList();
             app.Contact.Create(contact);
             app.Navigation.OpenContacts();
             List<ContactData> newContact = app.Contact.GetContactList();

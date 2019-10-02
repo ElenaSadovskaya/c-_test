@@ -11,14 +11,28 @@ namespace Education_web_test
     [TestFixture]
     public class GroupModificationTests : AuthTestBase
     {
-        [Test]
-        public void GroupModificationsTest()
+
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        {
+            List<GroupData> newData = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                newData.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return newData;
+        }
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+
+        public void GroupModificationsTest(GroupData newData)
         {
 
             app.Group.CheckGroupExist();
             List<GroupData> oldGroups = app.Group.GetGroupList();
             GroupData oldData = oldGroups[0];
-            GroupData newData = new GroupData("zzz", "", "");
             app.Group.Modify(0, newData);
             app.Navigation.OpenGroupTab();
             List<GroupData> newGroups = app.Group.GetGroupList();
