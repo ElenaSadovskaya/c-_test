@@ -11,6 +11,7 @@ namespace Education_web_test
     {
         private string allPhone;
         private string allEmail;
+        
 
         public ContactData(string firstname, string lastname, string address)
         {
@@ -107,6 +108,46 @@ namespace Education_web_test
         public string Notes { get; set; }
         public string Id { get; set; }
 
+        public string HomeCheck(string homePhone)
+        {
+            if (homePhone == null || homePhone == "")
+            {
+                return homePhone;
+            }
+            else
+            {
+
+                return homePhone.Insert(0, "H: ");
+            }
+        }
+
+        public string MobileCheck(string mobilePhone)
+        {
+            if (mobilePhone == null || mobilePhone == "")
+            {
+                return mobilePhone;
+            }
+            else
+            {
+
+                return mobilePhone.Insert(0, "M: ");
+            }
+        }
+
+        public string WorkCheck(string workPhone)
+        {
+            if (workPhone == null || workPhone == "")
+            {
+                return workPhone;
+            }
+            else
+            {
+
+                return workPhone.Insert(0, "W: ");
+            }
+        }
+
+
         public string AllPhone
         {
             get
@@ -116,8 +157,9 @@ namespace Education_web_test
                     return allPhone;
                 }
                 else
-                {
-                    return (CleanUpPhone(Home) + CleanUpPhone(Mobile) + CleanUpPhone(Work)).Trim(); 
+                {               
+                    
+                    return ( CleanUpPhone(HomeCheck(Home)) + CleanUpPhone(MobileCheck(Mobile)) + CleanUpPhone(WorkCheck(Work))).Trim(); 
                 }
             }
             
@@ -126,6 +168,8 @@ namespace Education_web_test
                 allPhone = value;
             }
         }
+
+        
 
         public string AllEmail
         {
@@ -153,7 +197,7 @@ namespace Education_web_test
             {
                 return "";
             }
-            return Regex.Replace(phone, "[ -()]", "")  + "\r\n";
+            return Regex.Replace(phone, "[-()]", "")  + "\r\n";
         }
 
 
@@ -172,14 +216,17 @@ namespace Education_web_test
             {
                 return "";
             }
-            return Regex.Replace(address, "[ -()]", "") + "\r\n";
+            return address + "\r\n";
         }
 
+
+        
         public string AllData
         {
             get
             {
-                return ((Firstname +  LastName + "\r\n") + CleanUpAddress(Address) + "\r\n" + (AllPhone + "\r\n") + "\r\n" + (AllEmail + "\r\n")).Trim();
+                
+                return ((Firstname + " " +  LastName + "\r\n") + CleanUpAddress(Address) + "\r\n" + (AllPhone + "\r\n") + "\r\n" + (AllEmail + "\r\n")).Trim();
 
             }
 

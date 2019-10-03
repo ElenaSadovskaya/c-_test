@@ -179,7 +179,7 @@ namespace Education_web_test
         public ContactData GetInformationFromForm(int index)
         {
             manager.Navigation.OpenHomePage();
-            SelectContact(0);
+            SelectContact(index);
             ModifySelectedContact();
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -208,8 +208,7 @@ namespace Education_web_test
         {
             manager.Navigation.OpenHomePage();
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].Click();
-            string allDataFromDetailsFormat = Regex.Replace(driver.FindElement(By.Id("content")).Text.Trim(), "[ -():MWH]", "");
-            return allDataFromDetailsFormat; 
+            return driver.FindElement(By.Id("content")).Text.Trim(); 
         }
     }
 }
