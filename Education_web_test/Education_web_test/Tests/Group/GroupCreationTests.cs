@@ -4,10 +4,15 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 
 namespace Education_web_test
 {
+         
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
@@ -26,8 +31,31 @@ namespace Education_web_test
         }
 
 
+        public static IEnumerable<GroupData> GroupDataFromFileFromCSV()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new GroupData(parts[0], parts[1], parts[2]));
+            }
+            return groups;
+        }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupData> GroupDataFromFileFromXML()
+        {
+            
+            return (List<GroupData>) 
+                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromFileFromJSON()
+        {
+           return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromFileFromJSON")]
 
         public void GroupCreationTest(GroupData group)
         {

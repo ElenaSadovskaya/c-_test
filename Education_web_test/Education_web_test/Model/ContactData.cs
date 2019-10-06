@@ -11,7 +11,11 @@ namespace Education_web_test
     {
         private string allPhone;
         private string allEmail;
-        
+
+        public ContactData()
+        {
+            
+        }
 
         public ContactData(string firstname, string lastname, string address)
         {
