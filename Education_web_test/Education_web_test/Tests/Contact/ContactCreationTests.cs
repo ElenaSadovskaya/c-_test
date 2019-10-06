@@ -14,7 +14,7 @@ namespace Education_web_test
     [TestFixture]
     class ContactCreationTests : AuthTestBase
     {
-        public static IEnumerable<ContactData> RandomGroupDataProvider()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contact = new List<ContactData>();
             for (int i = 0; i < 5; i++)

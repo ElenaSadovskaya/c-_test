@@ -35,6 +35,7 @@ namespace addressbook_test_data_generator
             {
                 System.Console.Out.Write("Wrong data format" + dataType);
             }
+
             writer.Close();
 
         }
@@ -134,7 +135,7 @@ namespace addressbook_test_data_generator
 
         static void WriteContactsToXMLFormat(List<ContactData> contacts, StreamWriter writer)
         {
-            new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, contacts);
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
 
         }
 

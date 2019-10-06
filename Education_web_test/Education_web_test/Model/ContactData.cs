@@ -14,7 +14,6 @@ namespace Education_web_test
 
         public ContactData()
         {
-            
         }
 
         public ContactData(string firstname, string lastname, string address)
