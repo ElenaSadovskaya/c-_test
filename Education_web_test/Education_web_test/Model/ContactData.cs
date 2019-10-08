@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Education_web_test
 {
@@ -150,6 +152,7 @@ namespace Education_web_test
             }
         }
 
+        [XmlIgnore, JsonIgnore]
 
         public string AllPhone
         {
@@ -172,7 +175,8 @@ namespace Education_web_test
             }
         }
 
-        
+
+        [XmlIgnore, JsonIgnore]
 
         public string AllEmail
         {
@@ -223,7 +227,7 @@ namespace Education_web_test
         }
 
 
-        
+        [XmlIgnore, JsonIgnore]
         public string AllData
         {
             get
