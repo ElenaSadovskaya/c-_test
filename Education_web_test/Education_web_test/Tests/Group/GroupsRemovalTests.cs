@@ -9,18 +9,18 @@ using System.Collections.Generic;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupsRemoval : AuthTestBase
+    public class GroupsRemoval : GroupTestBase
     {
                
         [Test]
         public void GroupRemoval()
         {
             app.Group.CheckGroupExist();
-            List<GroupData> oldGroups = app.Group.GetGroupList();
-            app.Group.Detele(0);
-            app.Navigation.OpenGroupTab();
-            List<GroupData> newGroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData toBeRemoved = oldGroups[0];
+            app.Group.Detele(toBeRemoved);
+            app.Navigation.OpenGroupTab();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
 

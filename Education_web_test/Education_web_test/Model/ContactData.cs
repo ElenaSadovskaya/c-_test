@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using LinqToDB.Mapping;
 
 namespace Education_web_test
 {
-   public  class ContactData: IEquatable<ContactData>, IComparable<ContactData>
+    [Table(Name = "addressbook")]
+    public  class ContactData: IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhone;
         private string allEmail;
@@ -72,6 +74,7 @@ namespace Education_web_test
         public ContactData(string firstname, string lastname, string address, string middlename, string nickname, string title, string company, string home, string mobile, string work, string fax, string email, string email2, string email3, string homepage, string address2, string phone2, string notes )
         {
 
+            
             Firstname = firstname ;
             Middlename =middlename;
             LastName = lastname;
@@ -92,25 +95,35 @@ namespace Education_web_test
             Notes = notes;
 
         }
-
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
+        [Column(Name = "middlename")]
         public string Middlename { get; set; }
+        [Column(Name = "lastname")]
         public string LastName { get; set; }
         public string Nickname { get; set; }
         public string Title { get; set; }
         public string Company { get; set; }
+        [Column(Name = "address")]
         public string Address { get; set; }
+        [Column(Name = "home")]
         public string Home { get; set; }
+        [Column(Name = "mobile")]
         public string Mobile { get; set; }
+        [Column(Name = "work")]
         public string Work { get; set; }
         public string Fax { get; set; }
+        [Column(Name = "email")]
         public string Email { get; set; }
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
         public string Homepage { get; set; }
         public string Address2 { get; set; }
         public string Phone2 { get; set; }
         public string Notes { get; set; }
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
         public string HomeCheck(string homePhone)
@@ -240,6 +253,14 @@ namespace Education_web_test
             set
             {
                 AllData = value;
+            }
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressbookDB dB = new AddressbookDB())
+            {
+                return (from g in dB.Contacts select g).ToList();
             }
         }
     }

@@ -10,30 +10,16 @@ namespace Education_web_test
     [TestFixture]
     public class ContactModificationTests: AuthTestBase
     {
-        public static IEnumerable<ContactData> RandomGroupDataProvider()
+        [Test]
+        public void  ContactModificationTest()
         {
-            List<ContactData> newData = new List<ContactData>();
-            for (int i = 0; i < 5; i++)
-            {
-                newData.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30), GenerateRandomString(30))
-                {
-                    Firstname = GenerateRandomString(100),
-                    LastName = GenerateRandomString(100),
-                    Address = GenerateRandomString(100)
-                });
-            }
-            return newData;
-        }
-
-        [Test, TestCaseSource("RandomGroupDataProvider")]
-        public void  ContactModificationTest(ContactData newData)
-        {
+            ContactData newData = new ContactData("1", "1", "1");
             app.Contact.CheckContactExist();
-            List<ContactData> oldContact = app.Contact.GetContactList();
-            ContactData oldData = oldContact[0];
-            app.Contact.Modify(0, newData);
+            List<ContactData> oldContact = ContactData.GetAll();
+            ContactData toBeModified = oldContact[0];
+            app.Contact.Modify(toBeModified, newData);
             app.Navigation.OpenHomePage();
-            List<ContactData> newContact = app.Contact.GetContactList();
+            List<ContactData> newContact = ContactData.GetAll(); 
             oldContact[0].Firstname = newData.Firstname;
             oldContact[0].LastName = newData.LastName;
             oldContact[0].Address = newData.Address;
@@ -44,7 +30,7 @@ namespace Education_web_test
             foreach (ContactData contact in newContact)
             {
 
-                if (contact.Id == oldData.Id)
+                if (contact.Id == toBeModified.Id)
                 {
                     Assert.AreEqual(newData.LastName, contact.LastName);
                 }

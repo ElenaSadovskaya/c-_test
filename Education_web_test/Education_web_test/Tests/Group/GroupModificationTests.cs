@@ -9,40 +9,27 @@ using NUnit.Framework;
 namespace Education_web_test
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
 
-        public static IEnumerable<GroupData> RandomGroupDataProvider()
-        {
-            List<GroupData> newData = new List<GroupData>();
-            for (int i = 0; i < 5; i++)
-            {
-                newData.Add(new GroupData(GenerateRandomString(30))
-                {
-                    Header = GenerateRandomString(100),
-                    Footer = GenerateRandomString(100)
-                });
-            }
-            return newData;
-        }
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        [Test]
 
-        public void GroupModificationsTest(GroupData newData)
+        public void GroupModificationsTest()
         {
-
+            GroupData newData = new GroupData("0", "1", "2");
             app.Group.CheckGroupExist();
-            List<GroupData> oldGroups = app.Group.GetGroupList();
-            GroupData oldData = oldGroups[0];
-            app.Group.Modify(0, newData);
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData toBeChanged = oldGroups[0];
+            app.Group.Modify(toBeChanged, newData);
             app.Navigation.OpenGroupTab();
-            List<GroupData> newGroups = app.Group.GetGroupList();
+            List<GroupData> newGroups =GroupData.GetAll();
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
             foreach (GroupData group in newGroups)
             {
-                if (group.Id == oldData.Id)
+                if (group.Id == toBeChanged.Id)
                 {
                     Assert.AreEqual( newData.Name, group.Name);
                 }

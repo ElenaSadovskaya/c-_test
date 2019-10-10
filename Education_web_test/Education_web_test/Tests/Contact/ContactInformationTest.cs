@@ -9,7 +9,7 @@ namespace Education_web_test
 {
 
     [TestFixture]
-    public class ContactInformationTest : AuthTestBase
+    public class ContactInformationTest : ContactTestBest
     {
         [Test]
         public void TestContactInformation()

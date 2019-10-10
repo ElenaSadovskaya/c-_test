@@ -38,11 +38,29 @@ namespace Education_web_test
             SubmitGroupModification();
             return this;
         }
-        
+
+        public GroupHelper Modify(GroupData group, GroupData newData)
+        {
+            manager.Navigation.OpenGroupTab();
+            SelectGroup(group.Id);
+            InitialModifyGroup();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            return this;
+        }
+
         public GroupHelper Detele(int p)
         {
             manager.Navigation.OpenGroupTab();
             SelectGroup(p); 
+            DeleteGroup();
+            return this;
+        }
+
+        public GroupHelper Detele(GroupData group)
+        {
+            manager.Navigation.OpenGroupTab();
+            SelectGroup(group.Id);
             DeleteGroup();
             return this;
         }
@@ -85,6 +103,12 @@ namespace Education_web_test
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id+ "'])")).Click();
             return this;
         }
 

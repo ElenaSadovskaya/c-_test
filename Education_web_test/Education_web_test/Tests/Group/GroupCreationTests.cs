@@ -8,13 +8,14 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 
 namespace Education_web_test
 {
          
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -59,16 +60,30 @@ namespace Education_web_test
 
         public void GroupCreationTest(GroupData group)
         {
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Group.Create(group);
             app.Navigation.OpenGroupTab();
 
-            List<GroupData> newGroups = app.Group.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
 
+        [Test]
+
+        public void TestDBConnection()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = GroupData.GetAll();
+            DateTime finish = DateTime.Now;
+            System.Console.Out.WriteLine(finish.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+            finish = DateTime.Now;
+            System.Console.Out.WriteLine(finish.Subtract(start));
+        }
     }
 }

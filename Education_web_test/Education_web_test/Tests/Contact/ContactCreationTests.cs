@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Education_web_test
 {
     [TestFixture]
-    class ContactCreationTests : AuthTestBase
+    class ContactCreationTests : ContactTestBest
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -57,10 +57,10 @@ namespace Education_web_test
 
         public void ContactCreation(ContactData contact)
         {
-            List<ContactData> oldContact = app.Contact.GetContactList();
+            List<ContactData> oldContact = ContactData.GetAll();
             app.Contact.Create(contact);
             app.Navigation.OpenContacts();
-            List<ContactData> newContact = app.Contact.GetContactList();
+            List<ContactData> newContact = ContactData.GetAll();
             oldContact.Add(contact);
             oldContact.Sort();
             newContact.Sort();

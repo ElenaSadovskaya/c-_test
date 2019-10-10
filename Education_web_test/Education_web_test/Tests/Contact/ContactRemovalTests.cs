@@ -9,22 +9,22 @@ namespace Education_web_test
 {
     [TestFixture]
 
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBest
     {
         [Test]
         public void ContactRemoval()
         {
             app.Contact.CheckContactExist();
-            List<ContactData> oldContact = app.Contact.GetContactList();
-            app.Contact.RemoveContact(0);
+            List<ContactData> oldContact = ContactData.GetAll();
+            ContactData toBeRemoved = oldContact[0];
+            app.Contact.RemoveContact(toBeRemoved);
             app.Navigation.OpenContacts();
-            List<ContactData> newContact = app.Contact.GetContactList();
-            ContactData toBeRemovedContact = oldContact[0];
+            List<ContactData> newContact = ContactData.GetAll();
             oldContact.RemoveAt(0);
             Assert.AreEqual(oldContact, newContact);
             foreach (ContactData contact in newContact)
             {
-                Assert.AreNotEqual(contact.Id, toBeRemovedContact.Id);
+                Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
             }
 
         }
