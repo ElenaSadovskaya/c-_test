@@ -48,7 +48,7 @@ namespace Education_web_test
 
         public override string ToString()
         {
-            return "LastName=" + LastName + " FirstName=" + Firstname + "Address=" + Address;
+            return "LastName=" + LastName + "FirstName=" + Firstname + "Address=" + Address;
         }
 
         public int CompareTo(ContactData other)
@@ -125,6 +125,8 @@ namespace Education_web_test
         public string Notes { get; set; }
         [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
         public string HomeCheck(string homePhone)
         {

@@ -76,7 +76,6 @@ namespace Education_web_test
             Type(By.Name("group_name"), group.Name);
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
             return this;
         }
         
@@ -108,7 +107,7 @@ namespace Education_web_test
 
         public GroupHelper SelectGroup(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id+ "'])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id + "'])")).Click();
             return this;
         }
 

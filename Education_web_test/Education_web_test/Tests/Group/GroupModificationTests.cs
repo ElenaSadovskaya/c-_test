@@ -16,7 +16,7 @@ namespace Education_web_test
 
         public void GroupModificationsTest()
         {
-            GroupData newData = new GroupData("0", "1", "2");
+            GroupData newData = new GroupData("1", "3", "456");
             app.Group.CheckGroupExist();
             List<GroupData> oldGroups = GroupData.GetAll();
             GroupData toBeChanged = oldGroups[0];

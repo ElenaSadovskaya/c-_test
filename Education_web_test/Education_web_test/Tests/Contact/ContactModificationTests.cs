@@ -13,7 +13,7 @@ namespace Education_web_test
         [Test]
         public void  ContactModificationTest()
         {
-            ContactData newData = new ContactData("1", "1", "1");
+            ContactData newData = new ContactData("1", "2", "3");
             app.Contact.CheckContactExist();
             List<ContactData> oldContact = ContactData.GetAll();
             ContactData toBeModified = oldContact[0];
@@ -26,7 +26,6 @@ namespace Education_web_test
             oldContact.Sort();
             newContact.Sort();
             Assert.AreEqual(oldContact, newContact);
-
             foreach (ContactData contact in newContact)
             {
 
@@ -34,6 +33,7 @@ namespace Education_web_test
                 {
                     Assert.AreEqual(newData.LastName, contact.LastName);
                 }
+
             }
         }
     }
