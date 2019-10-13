@@ -1,14 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Education_web_test
 {
     [TestFixture]
-    public class ContactModificationTests: AuthTestBase
+    public class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -25,13 +21,13 @@ namespace Education_web_test
             oldContact[0].Address = newData.Address;
             oldContact.Sort();
             newContact.Sort();
-            Assert.AreEqual(oldContact, newContact);
+            Assert.AreEqual(newContact, oldContact);
             foreach (ContactData contact in newContact)
             {
 
                 if (contact.Id == toBeModified.Id)
                 {
-                    Assert.AreEqual(newData.LastName, contact.LastName);
+                    Assert.AreEqual(contact.LastName, newData.LastName);
                 }
 
             }

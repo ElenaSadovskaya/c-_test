@@ -49,6 +49,7 @@ namespace Education_web_test
             SelectContact(contact.Id);
             SelectGroupToAdd(group.Name);
             CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
         }
 
         public void CommitAddingContactToGroup()
@@ -75,6 +76,7 @@ namespace Education_web_test
             ModifySelectedContact();
             FillContactData(newData);
             UpdateContact();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(100)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
             return this;
         }
 
