@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\AddressbookDB.cs" />
+    <Compile Include="Model\GroupContactRelation.cs" />
+    <Compile Include="Tests\ContactGroupRelationships.cs" />
     <Compile Include="Tests\Contact\ContactInformationTest.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
     <Compile Include="Model\AccountData.cs" />

@@ -262,7 +262,7 @@ namespace Education_web_test
         {
             using (AddressbookDB dB = new AddressbookDB())
             {
-                return (from g in dB.Contacts select g).ToList();
+                return (from c in dB.Contacts.Where(c=> c.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
     }

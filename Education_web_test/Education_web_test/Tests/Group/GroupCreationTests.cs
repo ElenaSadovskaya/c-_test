@@ -1,19 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
-using System.Linq;
 
 
 namespace Education_web_test
 {
-         
+
     [TestFixture]
     public class GroupCreationTests : GroupTestBase
     {
@@ -28,7 +22,7 @@ namespace Education_web_test
                     Footer = GenerateRandomString(100)
                 });
             }
-            return groups; 
+            return groups;
         }
 
 
@@ -46,14 +40,14 @@ namespace Education_web_test
 
         public static IEnumerable<GroupData> GroupDataFromFileFromXML()
         {
-            
-            return (List<GroupData>) 
+
+            return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromFileFromJSON()
         {
-           return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
         }
 
         [Test, TestCaseSource("GroupDataFromFileFromJSON")]
@@ -75,15 +69,11 @@ namespace Education_web_test
 
         public void TestDBConnection()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUI = GroupData.GetAll();
-            DateTime finish = DateTime.Now;
-            System.Console.Out.WriteLine(finish.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
 
-            start = DateTime.Now;
-            List<GroupData> fromDB = GroupData.GetAll();
-            finish = DateTime.Now;
-            System.Console.Out.WriteLine(finish.Subtract(start));
         }
     }
 }

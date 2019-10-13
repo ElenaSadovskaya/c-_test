@@ -81,5 +81,16 @@ namespace Education_web_test
                 return (from g in dB.Groups select g).ToList();
             }
         }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressbookDB dB = new AddressbookDB())
+            {
+                return (from c in dB.Contacts
+
+                        from grc in dB.GCR.Where(p=> p.GroupId == Id&& p.ContactId == c.Id&& c.Deprecated == "0000-00-00 00:00:00")
+                        select c).Distinct().ToList();
+            }
+        }
     }
 }

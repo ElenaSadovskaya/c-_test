@@ -42,6 +42,32 @@ namespace Education_web_test
 
         }
 
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.OpenHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+
+
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]"); 
+        }
+
         public ContactHelper Modify(ContactData contact, ContactData newData)
         {
             manager.Navigation.OpenHomePage();
@@ -100,7 +126,7 @@ namespace Education_web_test
 
         public ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '" + id + "'])")).Click();
+            driver.FindElement(By.Id(id)).Click();
             return this; ;
         }
 

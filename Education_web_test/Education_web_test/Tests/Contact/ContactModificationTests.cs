@@ -11,7 +11,7 @@ namespace Education_web_test
     public class ContactModificationTests: AuthTestBase
     {
         [Test]
-        public void  ContactModificationTest()
+        public void ContactModificationTest()
         {
             ContactData newData = new ContactData("1", "2", "3");
             app.Contact.CheckContactExist();
@@ -19,7 +19,7 @@ namespace Education_web_test
             ContactData toBeModified = oldContact[0];
             app.Contact.Modify(toBeModified, newData);
             app.Navigation.OpenHomePage();
-            List<ContactData> newContact = ContactData.GetAll(); 
+            List<ContactData> newContact = ContactData.GetAll();
             oldContact[0].Firstname = newData.Firstname;
             oldContact[0].LastName = newData.LastName;
             oldContact[0].Address = newData.Address;
