@@ -42,6 +42,17 @@ namespace Education_web_test
 
         }
 
+        public void AddContactToGroup(int c, GroupData group)
+        {
+            manager.Navigation.OpenHomePage();
+            ClearGroupFilter();
+            SelectContact(c);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
+
+        }
+
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigation.OpenHomePage();
@@ -50,6 +61,29 @@ namespace Education_web_test
             SelectGroupToAdd(group.Name);
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
+            
+        }
+
+       
+
+        public void RemoveContactToGroup(int p, GroupData group)
+        {
+            manager.Navigation.OpenContacts();
+            SelectGroupWhereRemove(group.Name);
+            SelectContact(p);
+            RemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
+
+        }
+
+        public void RemoveContactFromGroup()
+        {
+           driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void SelectGroupWhereRemove(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
         }
 
         public void CommitAddingContactToGroup()
@@ -61,12 +95,16 @@ namespace Education_web_test
         {
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
 
-
         }
 
         public void ClearGroupFilter()
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]"); 
+        }
+
+        public void ShowContactsWithoutGroups()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
         }
 
         public ContactHelper Modify(ContactData contact, ContactData newData)
@@ -185,6 +223,35 @@ namespace Education_web_test
                 manager.Navigation.OpenHomePage();
             }
             return this;
+        }
+
+        public ContactHelper CheckContactWithoutGroupExist()
+        {
+            manager.Navigation.OpenHomePage();
+            ShowContactsWithoutGroups();
+            if (ElementExist())
+            {
+            }
+            else
+            {
+                NewContact();
+                Create(new ContactData("test", "test", "test"));
+                manager.Navigation.OpenHomePage();
+            }
+            return this;
+        }
+
+        public void CheckContactInGroupExist(int c, GroupData group)
+        {
+            manager.Navigation.OpenHomePage();
+            SelectGroupWhereRemove(group.Name);
+            if (ElementExist())
+            {
+            }
+            else
+            {
+                AddContactToGroup(c, group);
+            }
         }
 
         private List<ContactData> contactCache = null;

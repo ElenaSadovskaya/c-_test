@@ -17,10 +17,12 @@ namespace Education_web_test
         [Test]
         public void TestAddingContactToGroup()
         {
+            app.Group.CheckGroupExist();
+            app.Contact.CheckContactWithoutGroupExist();
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
             ContactData contact = ContactData.GetAll().Except(oldList).First();
-            //action
+            
 
             app.Contact.AddContactToGroup(contact, group);
 
@@ -32,5 +34,24 @@ namespace Education_web_test
             Assert.AreEqual(oldList, newList);
         }
 
+        [Test]
+
+        public void TestDeletingContactToGroup()
+        {
+            app.Group.CheckGroupExist();
+            app.Contact.CheckContactExist();
+            GroupData group = GroupData.GetAll()[0];
+            app.Contact.CheckContactInGroupExist(0, group);
+            List<ContactData> oldList = group.GetContacts();
+            
+            app.Contact.RemoveContactToGroup(0, group);
+
+            List<ContactData> newList = group.GetContacts();
+            oldList.RemoveAt(0);
+            oldList.Sort();
+            newList.Sort();
+
+            Assert.AreEqual(oldList, newList);
+        }
     }
 }
