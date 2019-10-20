@@ -18,7 +18,9 @@ namespace Mantis
 
         public RegistrationHelper Registration { get; private set; }
         public FtpHelper Ftp { get; private set; }
-
+        public LoginHelper loginHelper;
+        public NavigationHelper navigator;
+        public ProjectManagementHelper project;
         public static ThreadLocal <ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
      
@@ -26,9 +28,12 @@ namespace Mantis
         {
 
             driver = new FirefoxDriver();
-            baseURL = "http://localhost";
+            baseURL = "http://localhost/mantisbt-2.22.1";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            project = new ProjectManagementHelper(this);
 
         }
 
@@ -69,6 +74,28 @@ namespace Mantis
 
         }
 
-        
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+        }
+
+        public NavigationHelper Navigation
+        {
+            get
+            {
+                return navigator;
+            }
+        }
+
+        public ProjectManagementHelper Project
+        {
+            get
+            {
+                return project;
+            }
+        }
     }
 }
