@@ -15,14 +15,19 @@ namespace Mantis
         [Test]
         public void RemoveProjectTest()
         {
-           // List<ProjectData> oldProject = ProjectData.GetAll();
-            ProjectData project = new ProjectData("tegghtst");
-            app.Project.RemoveSelectedProject(0);
-            //List<ProjectData> newProject = ProjectData.GetAll();
-            //oldProject.RemoveAt(0);
-           /// oldProject.Sort();
-            //newProject.Sort();
-           // Assert.AreEqual(oldProject, newProject);
+            app.Project.CheckProjectExist();
+            List<ProjectData> oldProject = ProjectData.GetAll();
+            ProjectData toBeRemoved = oldProject[0];
+            app.Project.RemoveSelectedProject(toBeRemoved);
+            List<ProjectData> newProject = ProjectData.GetAll();
+            oldProject.RemoveAt(0); 
+            oldProject.Sort();
+            newProject.Sort();
+            Assert.AreEqual(oldProject, newProject);
+            foreach (ProjectData project in newProject)
+            {
+                Assert.AreNotEqual(project.Id, toBeRemoved.Id);
+            }
         }
     }
 }

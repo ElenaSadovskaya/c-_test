@@ -46,7 +46,7 @@ namespace Mantis
 
         public bool ElementExist()
         {
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[1]")))
+            if (IsElementPresent(By.XPath(("//a[contains(@href,'manage_proj_edit_page.php')]"))))
             {
                 return true;
             }

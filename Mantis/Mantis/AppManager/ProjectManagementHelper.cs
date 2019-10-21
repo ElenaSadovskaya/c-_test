@@ -33,14 +33,31 @@ namespace Mantis
 
         }
 
+        public void RemoveSelectedProject(ProjectData project)
+        {
+            manager.Navigation.OpenProjectPage();
+            SelectProject(project.Id);
+            PressRemoveButton();
+
+        }
+
         public void PressRemoveButton()
         {
             driver.FindElement(By.XPath("//input[@value='Delete Project']")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete Project']")).Click();
         }
+
 
         public void SelectProject(int v)
         {
-            driver.FindElements(By.TagName("tbody"))[0].FindElements(By.CssSelector("tr"))[v].FindElements(By.TagName("td"))[0].Click();
+            driver.FindElements(By.TagName("tbody"))[0].FindElements(By.CssSelector("tr"))[v].FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
+        }
+
+        public ProjectManagementHelper SelectProject(string id)
+        {
+            
+            driver.FindElement(By.XPath(("//a[contains(@href,'manage_proj_edit_page.php?project_id="+id+"')]"))).Click();
+            return this; 
         }
 
         public void AddNewProjectButton()
@@ -56,6 +73,20 @@ namespace Mantis
         public void FillData(ProjectData project)
         {
             Type(By.Name("name"), project.Name);
+        }
+
+        public ProjectManagementHelper CheckProjectExist()
+        {
+            manager.Navigation.OpenProjectPage();
+            if (ElementExist())
+            {
+            }
+            else
+            {
+                AddNewProject(new ProjectData("test123"));
+                manager.Navigation.OpenProjectPage();
+            }
+            return this;
         }
     }
 }
