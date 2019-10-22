@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 namespace Desktops_test
 { 
    public class GroupData : IComparable<GroupData> , IEquatable<GroupData>
-
-
    {
+
         public string Name { get; set; }
 
+        public GroupData()
+        {
+            
+        }
+
+        public GroupData(string name)
+        {
+            Name = name;
+        }
         public int CompareTo(GroupData other)
         {
             return this.Name.CompareTo(other.Name);

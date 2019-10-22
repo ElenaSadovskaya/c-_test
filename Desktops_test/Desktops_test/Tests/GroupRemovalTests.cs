@@ -13,6 +13,7 @@ namespace Desktops_test
         [Test]
         public void GroupRemovalTest()
         {
+            app.Groups.CheckGroupExist();
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.RemoveGroup(0);
             List<GroupData> newGroups = app.Groups.GetGroupList();
