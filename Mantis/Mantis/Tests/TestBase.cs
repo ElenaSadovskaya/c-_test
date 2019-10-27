@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace Mantis
 {
+    
     public class TestBase
     {
         

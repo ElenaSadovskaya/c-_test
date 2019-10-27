@@ -17,36 +17,11 @@ namespace Mantis
         }
         public void Login(AccountData account)
         {
-            if (IsLoggedIn())
-            {
-                if (IsLoggedIn())
-                {
-                    return;
-                }
-
-                Logout();
-
-            }
             Type(By.Id("username"), account.Name);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
             Type(By.Id("password"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
-
-        public void Logout()
-        {
-            if (IsLoggedIn())
-            {
-                driver.FindElement(By.LinkText("Logout")).Click();
-            }
-        }
-
-        public bool IsLoggedIn()
-        {
-            return IsElementPresent(By.Name("logout"));
-        }
-
-       
 
     }
 }

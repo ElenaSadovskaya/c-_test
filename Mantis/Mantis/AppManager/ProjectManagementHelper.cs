@@ -19,7 +19,7 @@ namespace Mantis
 
         public void AddNewProject(ProjectData project)
         {
-            manager.Navigation.OpenProjectPage();
+            manager.Admin.OpenProjectPage();
             AddNewProjectButton();
             FillData(project);
             SubmitNewProjectCreation();
@@ -27,7 +27,7 @@ namespace Mantis
 
         public  void RemoveSelectedProject(int v)
         {
-            manager.Navigation.OpenProjectPage();
+            manager.Admin.OpenProjectPage();
             SelectProject(v);
             PressRemoveButton();
 
@@ -35,7 +35,7 @@ namespace Mantis
 
         public void RemoveSelectedProject(ProjectData project)
         {
-            manager.Navigation.OpenProjectPage();
+            manager.Admin.OpenProjectPage();
             SelectProject(project.Id);
             PressRemoveButton();
 
@@ -77,14 +77,14 @@ namespace Mantis
 
         public ProjectManagementHelper CheckProjectExist()
         {
-            manager.Navigation.OpenProjectPage();
+            manager.Admin.OpenProjectPage();
             if (ElementExist())
             {
             }
             else
             {
                 AddNewProject(new ProjectData("test123"));
-                manager.Navigation.OpenProjectPage();
+                manager.Admin.OpenProjectPage();
             }
             return this;
         }
