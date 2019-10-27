@@ -18,7 +18,7 @@ namespace Mantis.Tests
             AccountData account = new AccountData()
             {
 
-                Name = "adminitrator",
+                Name = "administrator",
                 Password = "root"
             };
             ProjectData project = new ProjectData()

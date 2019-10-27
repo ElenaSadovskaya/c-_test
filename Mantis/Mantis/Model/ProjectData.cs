@@ -13,6 +13,7 @@ namespace Mantis
     [Table(Name = "mantis_project_table")]
     public class ProjectData : IEquatable<ProjectData>, IComparable<ProjectData>
     {
+       
         public ProjectData()
         {
         }
