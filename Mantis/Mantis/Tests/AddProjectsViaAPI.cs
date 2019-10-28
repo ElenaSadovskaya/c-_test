@@ -9,7 +9,7 @@ using System.IO;
 namespace Mantis
 {
     [TestFixture]
-    public class AddAndRemoveProjectsViaAPI : AuthTestBase
+    public class AddProjectsViaAPI : AuthTestBase
     {
         [Test]
         public void AddNewProjectTest()
@@ -32,24 +32,7 @@ namespace Mantis
         }
 
 
-        [Test]
-        public void RemoveProject()
-        {
-            AccountData account = new AccountData()
-            {
-                Name = "administrator",
-                Password = "root"
-            };
-
-            app.API.CheckProjectExist(account);
-            List<ProjectData> oldProject = app.API.GetAllProjects(account);
-            app.Project.RemoveSelectedProject(0);
-            List<ProjectData> newProject = app.API.GetAllProjects(account);
-            oldProject.RemoveAt(0);
-            oldProject.Sort();
-            newProject.Sort();
-            Assert.AreEqual(oldProject, newProject);            
-        }
+        
 
 
     }

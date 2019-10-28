@@ -118,12 +118,13 @@
     <Compile Include="AppManager\RegistrationHelper.cs" />
     <Compile Include="Model\AddressbookDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\AddAndRemoveProjectsViaAPI.cs" />
+    <Compile Include="Tests\AddProjectsViaAPI.cs" />
     <Compile Include="Tests\AddNewIssues.cs" />
     <Compile Include="Tests\AddNewProjectTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
     <Compile Include="Model\ProjectData.cs" />
     <Compile Include="Tests\RemoveProjectTests.cs" />
+    <Compile Include="Tests\RemoveTestViaAPI.cs" />
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Tests\AccountCreationTest.cs" />
   </ItemGroup>
